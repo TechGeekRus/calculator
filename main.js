@@ -14,10 +14,12 @@ function buttonPressed(buttonTitle){
     if(buttonTitle === "+" ||
         buttonTitle === "-" ||
         buttonTitle === "*" ||
-        buttonTitle === "/"
+        buttonTitle === "/" 
+        // buttonTitle === "." ||
+        // buttonTitle === "0"
     ){
 
-                if(firstNumber.length > 0){
+            if(firstNumber.length > 0){
             operation = buttonTitle
             display()
         }
@@ -32,15 +34,38 @@ function buttonPressed(buttonTitle){
             buttonTitle === '7' ||
             buttonTitle === '8'||
             buttonTitle === '9'){
+            console.log(buttonTitle)
+        if(buttonTitle === '.' && operation.length === 0 && firstNumber.indexOf('.') !== -1){
+            return
+        }
+        if(buttonTitle === '.' && operation.length > 0 && secondNumber.indexOf('.') !== -1){
+            return
+        }
+        if(buttonTitle ==='0' && firstNumber === '' && operation === ''){
+            return
+        }
         if (firstNumber.length > 0 && operation.length > 0){
             secondNumber += buttonTitle
             display()
-        }else if(operation.length === 0)
-        firstNumber += buttonTitle
-        display()
+        }else if(operation.length === 0){   
+            firstNumber += buttonTitle
+            display()
+        } 
     }
-}
-
+    if(buttonTitle === 'C'){
+            firstNumber = ''
+            operation = ''
+            secondNumber =''
+            display()
+        }
+    if(buttonTitle === '='){
+            let result = eval(firstNumber + operation + secondNumber)
+            firstNumber = result.toString()
+            operation = ''
+            secondNumber = ''
+            display()
+        }
+    }
 
 function display(){
     const display = document.querySelector('#display')
